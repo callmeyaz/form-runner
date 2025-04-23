@@ -1,0 +1,28 @@
+{
+  "name": "form-runner",
+  "description": "",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callmeyaz/form-runner.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx ./src/test-bed.ts",
+    "dev": "npm run build && npm run start",
+    "watch": "tsc -w",
+    "pkg": "npm update --save"
+  },
+  "types": "./dist/types/main.d.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "lodash-es": "^4.17.21",
+    "mutation-tracker": "^1.0.27",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  }
+}
