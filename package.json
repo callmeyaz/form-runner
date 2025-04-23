@@ -1,7 +1,7 @@
 {
   "name": "form-runner",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "./dist/index.js",
   "repository": {
@@ -11,11 +11,11 @@
   "scripts": {
     "build": "tsc",
     "start": "tsx ./src/test-bed.ts",
-    "dev": "npm run build && npm run start",
+    "dev": "npm run pkg && npm run build && npm run start && npm version patch",
     "watch": "tsc -w",
     "pkg": "npm update --save"
   },
-  "types": "./dist/types/main.d.ts",
+  "types": "./dist/types/index.d.ts",
   "type": "module",
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
