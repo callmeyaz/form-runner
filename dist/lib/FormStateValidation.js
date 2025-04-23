@@ -4,10 +4,12 @@ import some from "lodash-es/some";
 import { FormStateTrackers } from "./FormStateTrackers";
 import { flattenObjectToArray } from "../utils";
 export class FormStateValidation {
+    validator;
     _stateTrackers;
     _errorFlatList = [];
-    constructor(dataObject, config) {
-        this._stateTrackers = new FormStateTrackers(dataObject, config);
+    constructor(validator, model, config) {
+        this.validator = validator;
+        this._stateTrackers = new FormStateTrackers(model, config);
     }
     get errorFlatList() {
         return this._errorFlatList;
@@ -89,6 +91,13 @@ export class FormStateValidation {
             isValid: !!(fieldErrors.length),
             errors: fieldErrors,
         };
+    }
+    validateAsync(model) {
+        return this.validator.validate(model)
+            .then((response) => {
+            this.setErrorsAll(response);
+            return this.isFormValid();
+        });
     }
 }
 //# sourceMappingURL=FormStateValidation.js.map

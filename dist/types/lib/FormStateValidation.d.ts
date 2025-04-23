@@ -2,6 +2,7 @@ import { FormFieldState } from "./FormFieldState";
 import { FormValidationConfig } from "./FormValidationConfig";
 import { IValidationErrorMessage } from "./IValidationErrorMessage";
 import { MutatedAttribute } from "mutation-tracker";
+import { IFormValidator } from "./IFormValidator";
 export interface IFormStateValidation<T> {
     readonly errorFlatList: IValidationErrorMessage[];
     readonly errors: MutatedAttribute<T, string[]>;
@@ -21,13 +22,15 @@ export interface IFormStateValidation<T> {
     isFormDirty: () => boolean;
     isFormValid: () => boolean;
     getFieldState: <T>(name: string, currentValue: T, previousValue: T) => FormFieldState<T>;
+    validateAsync: (model: T) => Promise<boolean>;
 }
 export declare class FormStateValidation<T extends {
     [field: string]: any;
 }> implements IFormStateValidation<T> {
+    private validator;
     private _stateTrackers;
     private _errorFlatList;
-    constructor(dataObject: T, config?: FormValidationConfig);
+    constructor(validator: IFormValidator<IValidationErrorMessage>, model: T, config?: FormValidationConfig);
     get errorFlatList(): IValidationErrorMessage[];
     get errors(): {};
     get touched(): {};
@@ -47,5 +50,6 @@ export declare class FormStateValidation<T extends {
     isFormDirty(): boolean;
     isFormValid(): boolean;
     getFieldState<T>(name: string, currentValue: T, previousValue: T): FormFieldState<T>;
+    validateAsync(model: T): Promise<boolean>;
 }
 //# sourceMappingURL=FormStateValidation.d.ts.map

@@ -7,6 +7,7 @@ import { FormValidationConfig } from "./FormValidationConfig";
 import { IValidationErrorMessage } from "./IValidationErrorMessage";
 import { flattenObjectToArray } from "../utils";
 import { MutatedAttribute } from "mutation-tracker";
+import { IFormValidator } from "./IFormValidator";
 
 export interface IFormStateValidation<T> {
   readonly errorFlatList: IValidationErrorMessage[];
@@ -31,6 +32,8 @@ export interface IFormStateValidation<T> {
   isFormDirty: () => boolean;
   isFormValid: () => boolean;
   getFieldState: <T>(name: string, currentValue: T, previousValue: T) => FormFieldState<T>;
+
+  validateAsync: (model: T) => Promise<boolean>;
 }
 
 export class FormStateValidation<T extends { [field: string]: any }> implements IFormStateValidation<T> {
@@ -38,8 +41,10 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
   private _stateTrackers: IStateTrackers<T>;
   private _errorFlatList: IValidationErrorMessage[] = [];
 
-  public constructor(dataObject: T, config?: FormValidationConfig) {
-    this._stateTrackers = new FormStateTrackers(dataObject, config);
+  public constructor(
+    private validator: IFormValidator<IValidationErrorMessage>,
+    model: T, config?: FormValidationConfig) {
+    this._stateTrackers = new FormStateTrackers(model, config);
   }
 
   get errorFlatList() {
@@ -140,5 +145,13 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
       isValid: !!(fieldErrors.length),
       errors: fieldErrors,
     };
+  }
+
+  public validateAsync(model: T): Promise<boolean> {
+    return this.validator.validate(model)
+      .then((response) => {
+        this.setErrorsAll(response);
+        return this.isFormValid();
+      });
   }
 }
