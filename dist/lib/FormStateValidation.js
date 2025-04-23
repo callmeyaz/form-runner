@@ -64,15 +64,6 @@ export class FormStateValidation {
     getFieldValid(fieldName) {
         return (this._stateTrackers.errorStateTracker.getMutatedByAttributeName(fieldName).length ?? 0) <= 0;
     }
-    setErrorsAll(errors) {
-        this.setErrorFlatList(errors);
-        this._stateTrackers.errorStateTracker.clear();
-        var groups = Object.groupBy(errors, ({ key }) => key);
-        forEach(groups, (group, key) => {
-            var messages = group?.map(x => x.message) || [];
-            this._stateTrackers.errorStateTracker.setMutatedByAttributeName(messages, key);
-        });
-    }
     //#endregion
     isFormDirty() {
         return some(flattenObjectToArray(this._stateTrackers.dirtyStateTracker.state, "."), (item) => item.value);
@@ -97,6 +88,15 @@ export class FormStateValidation {
             .then((response) => {
             this.setErrorsAll(response);
             return this.isFormValid();
+        });
+    }
+    setErrorsAll(errors) {
+        this.setErrorFlatList(errors);
+        this._stateTrackers.errorStateTracker.clear();
+        var groups = Object.groupBy(errors, ({ key }) => key);
+        forEach(groups, (group, key) => {
+            var messages = group?.map(x => x.message) || [];
+            this._stateTrackers.errorStateTracker.setMutatedByAttributeName(messages, key);
         });
     }
 }

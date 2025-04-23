@@ -18,7 +18,6 @@ export interface IFormStateValidation<T> {
     setDirtyAll: (value: boolean) => void;
     getFieldErrors: (fieldName: string) => string[];
     getFieldValid: (fieldName: string) => boolean;
-    setErrorsAll: (errors: IValidationErrorMessage[]) => void;
     isFormDirty: () => boolean;
     isFormValid: () => boolean;
     getFieldState: <T>(name: string, currentValue: T, previousValue: T) => FormFieldState<T>;
@@ -46,10 +45,10 @@ export declare class FormStateValidation<T extends {
     setDirtyAll(value: boolean): void;
     getFieldErrors(fieldName: string): string[];
     getFieldValid(fieldName: string): boolean;
-    setErrorsAll(errors: IValidationErrorMessage[]): void;
     isFormDirty(): boolean;
     isFormValid(): boolean;
     getFieldState<T>(name: string, currentValue: T, previousValue: T): FormFieldState<T>;
     validateAsync(model: T): Promise<boolean>;
+    private setErrorsAll;
 }
 //# sourceMappingURL=FormStateValidation.d.ts.map

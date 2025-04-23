@@ -27,7 +27,6 @@ export interface IFormStateValidation<T> {
 
   getFieldErrors: (fieldName: string) => string[];
   getFieldValid: (fieldName: string) => boolean;
-  setErrorsAll: (errors: IValidationErrorMessage[]) => void;
 
   isFormDirty: () => boolean;
   isFormValid: () => boolean;
@@ -114,16 +113,6 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
   public getFieldValid(fieldName: string): boolean {
     return (this._stateTrackers.errorStateTracker.getMutatedByAttributeName(fieldName).length ?? 0) <= 0;
   }
-
-  public setErrorsAll(errors: IValidationErrorMessage[]) {
-    this.setErrorFlatList(errors);
-    this._stateTrackers.errorStateTracker.clear();
-    var groups = Object.groupBy(errors, ({ key }) => key)
-    forEach(groups, (group, key) => {
-      var messages = group?.map(x => x.message) || [];
-      this._stateTrackers.errorStateTracker.setMutatedByAttributeName(messages, key);
-    });
-  }
   //#endregion
 
   public isFormDirty(): boolean {
@@ -153,5 +142,15 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
         this.setErrorsAll(response);
         return this.isFormValid();
       });
+  }
+
+  private setErrorsAll(errors: IValidationErrorMessage[]) {
+    this.setErrorFlatList(errors);
+    this._stateTrackers.errorStateTracker.clear();
+    var groups = Object.groupBy(errors, ({ key }) => key)
+    forEach(groups, (group, key) => {
+      var messages = group?.map(x => x.message) || [];
+      this._stateTrackers.errorStateTracker.setMutatedByAttributeName(messages, key);
+    });
   }
 }
