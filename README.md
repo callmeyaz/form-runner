@@ -34,16 +34,16 @@ Plugging in an validation library is very straight forward. Just provide impleme
 ```javascript
 // Provide implementation for validation message interface.
 export interface IMyValidationMessage implements IValidationMessage {
-    key: string;
-    message: string;
+  key: string;
+  message: string;
 }
 
 // Provide implementation of validator interface.
 export class CustomValidator implements IFormValidator<MyValidationMessage> {
-    public validate(data: any): Promise<MyValidationMessage[]> {
-		// Below we are always returning no errors which means there are no errors.
-        return Promise.resolve([]);
-    };
+  public validate(data: any): Promise<MyValidationMessage[]> {
+  // Below we are always returning no errors which means there are no errors.
+      return Promise.resolve([]);
+  };
 }
 ```
 #### Validator for *Yup*
@@ -52,32 +52,36 @@ Below is the implement validator for Yup. Prety simple isn't it?
 
 ```javascript
 interface IYupValidationErrorMessage extends IValidationMessage, Record<string, unknown> {
-    errorCode: string
+  errorCode: string
 }
 
-class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> implements IFormValidator<IYupValidationErrorMessage> {
-    constructor(private validationSchema: Yup.ObjectSchema<T>) { }
+class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> 
+  implements IFormValidator<IYupValidationErrorMessage> {
+  
+  constructor(private validationSchema: Yup.ObjectSchema<T>) { }
 
 	public validate(data: T): Promise<IYupValidationErrorMessage[]> {
-        return this.validationSchema.validate(data, { abortEarly: false })
-            .then((_) => [])
-            .catch((err) => {
-				// Make sure errors returned by Yup Validation Tests are typed to IYupValidationErrorMessage interface
-				//	Example:
-				//	Yup.string().defined()
-				//		  .test(function (item) {
-				//			if (!item) {
-				//			  return this.createError({
-				//				message: {
-				//					key: this.path,  message: "Firstname is not provided."
-				//				} as Yup.Message<IYupValidationErrorMessage>
-				//			  });
-				//			}
-				//			return true;
-				//		  })
-                return err.errors as IYupValidationErrorMessage[];
-            });
-    }
+    return this.validationSchema.validate(data, { abortEarly: false })
+      .then((_) => [])
+      .catch((err) => {
+        // Make sure errors returned by Yup Validation Tests are 
+        // typed to IYupValidationErrorMessage interface.
+
+        //	Example:
+        //	Yup.string().defined()
+        //	  .test(function (item) {
+        //			if (!item) {
+        //			  return this.createError({
+        //				message: {
+        //					key: this.path,  message: "Firstname is not provided."
+        //				} as Yup.Message<IYupValidationErrorMessage>
+        //			  });
+        //			}
+        //		return true;
+        //	 })
+        return err.errors as IYupValidationErrorMessage[];
+      });
+  }
 }
 ```
 
@@ -115,26 +119,34 @@ Below is an implementation of Form validation using Form Runner and Yup validati
 ```javascript
 // Create Yup validation schema
 export const userSchema: Yup.ObjectSchema<typeof user> = Yup.object({
-    name: Yup.object({
-        firstname: Yup.string().defined().test(function(val) { return !val ?
-            this.createError({ message: { key: this.path, message: "First name not provided" } as Yup.Message<IYupValidationMessage> })
-            : true 
-        }),
-        lastname: Yup.string().defined().test(function(val) { return !val ?
-            this.createError({ message: { key: this.path, message: "Last name not provided" } as Yup.Message<IYupValidationMessage> })
-            : true 
-        })
+  name: Yup.object({
+    firstname: Yup.string().defined().test(function(val) { return !val ?
+      this.createError({ 
+        message: { key: this.path, message: "First name not provided" } 
+          as Yup.Message<IYupValidationMessage> })
+      : true 
     }),
-    roles:  Yup.array().defined().of(
-        Yup.string().defined().test(function(val) { return !val ?
-            this.createError({ message: { key: this.path, message: "Role not provided" } as Yup.Message<IYupValidationMessage> })
-            : true 
-        })
-    ),
-    address: Yup.string().defined().test(function(val) { return !val ?
-        this.createError({ message: { key: this.path, message: "Address not provided" } as Yup.Message<IYupValidationMessage> })
-        : true 
+    lastname: Yup.string().defined().test(function(val) { return !val ?
+      this.createError({ 
+        message: { key: this.path, message: "Last name not provided" }
+          as Yup.Message<IYupValidationMessage> })
+      : true 
     })
+  }),
+  roles:  Yup.array().defined().of(
+    Yup.string().defined().test(function(val) { return !val ?
+      this.createError({ 
+        message: { key: this.path, message: "Role not provided" } 
+          as Yup.Message<IYupValidationMessage> })
+      : true 
+    })
+  ),
+  address: Yup.string().defined().test(function(val) { return !val ?
+    this.createError({ 
+      message: { key: this.path, message: "Address not provided" } 
+        as Yup.Message<IYupValidationMessage> })
+    : true 
+  })
 });
 
 // Create instance of FormRunner
