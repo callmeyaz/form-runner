@@ -8,10 +8,10 @@ import { IValidationMessage } from "./IValidationMessage";
 import { flattenObjectToArray } from "./utils";
 import { IFormValidator } from "./IFormValidator";
 import { IFormStateTrackers } from "./IFormStateTrackers";
-import { IFormStateValidation } from "./IFormStateValidation";
+import { IFormRunner } from "./IFormRunner";
 import { MutatedAttribute } from "mutation-tracker";
 
-export class FormStateValidation<T extends { [field: string]: any }> implements IFormStateValidation<T> {
+export class FormRunner<T extends { [field: string]: any }> implements IFormRunner<T> {
 
   private _stateTrackers: IFormStateTrackers<T>;
   private _errorFlatList: IValidationMessage[] = [];

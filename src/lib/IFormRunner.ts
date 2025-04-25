@@ -2,7 +2,7 @@ import { MutatedAttribute } from "mutation-tracker";
 import { IValidationMessage } from "./IValidationMessage";
 import { FormFieldState } from "./FormFieldState";
 
-export interface IFormStateValidation<T> {
+export interface IFormRunner<T> {
   readonly errorFlatList: IValidationMessage[];
   readonly errors: MutatedAttribute<T, string[]>;
   readonly touched: MutatedAttribute<T, boolean>;
