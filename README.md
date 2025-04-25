@@ -1,4 +1,4 @@
-# form-runner 0.0.6
+# form-runner 0.0.8
 Form Runner is a library for form management and validation for ***any*** front-end applications. It is designed to be performant, flexible, and easy to use. It leverages [mutation-tracker](https://www.npmjs.com/package/mutation-tracker) library to provide unopinionated interface to implement form management in front-end libraries of your choice, whether its react, vue etc. It also provides a simple API for handling form data, validations, errors, dirty and touched states.
 
 You can use your favorite or any other validation library with form-runner, whether it's Yup, Zod, Joi or any other.
@@ -80,3 +80,60 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> implements IFormValidator
     }
 }
 ```
+
+### Step 2 - Start using *FormRunner*
+
+In your form, create instance of FormRunner for your form by passing it the validator and object to validate. Then track changes to your form by tracking click and change events and validate your for when needed.
+
+```javascript
+
+// create instance of FormRunner
+var validator = new YupValidator();
+var runner = new FormRunner<typeof user>(validator, user);
+
+// use functions below in form events.
+console.log("User: ", JSON.stringify(user))
+runner.setFieldDirty(true, "name.firstname");
+runner.setFieldTouched(true, "name.lastname");
+
+// Validate form when needed (may be on click of a button)
+runner.validateAsync(user)
+.then((response) => {
+
+runner.validateAsync(user)
+.then((response) => {
+	// Whether validation passed or failed?
+    console.log("Form Validation: ", isValid ? "passed": "failed");
+
+	// Log state of the form 
+	console.log("Dirty: ", JSON.stringify(runner.dirty))
+	console.log("Touched: ", JSON.stringify(runner.touched))
+	console.log("Errors: ", JSON.stringify(runner.errors))
+
+	console.log("name.firstname: ", JSON.stringify(runner.dirty.name?.firstname));
+	console.log("name.firstname: ", JSON.stringify(runner.touched.name?.firstname));
+	console.log("name.firstname: ", JSON.stringify(runner.errors.name?.firstname));
+
+	console.log("name.lastname: ", JSON.stringify(runner.dirty.name?.lastname))
+	console.log("name.lastname: ", JSON.stringify(runner.touched.name?.lastname))
+	console.log("name.lastname: ", JSON.stringify(runner.errors.name?.lastname));
+
+	console.log("roles[0]: ", JSON.stringify(runner.dirty.roles?.[0]));
+	console.log("roles[0]: ", JSON.stringify(runner.touched.roles?.[0]));
+	console.log("roles[0]: ", JSON.stringify(runner.errors.roles?.[0]));
+
+	console.log("roles[1]: ", JSON.stringify(runner.dirty.roles?.[1]));
+	console.log("roles[1]: ", JSON.stringify(runner.touched.roles?.[1]));
+	console.log("roles[1]: ", JSON.stringify(runner.errors.roles?.[1]));
+
+	console.log("name.address: ", JSON.stringify(runner.dirty.address));
+	console.log("name.address: ", JSON.stringify(runner.touched.address));
+	console.log("name.address: ", JSON.stringify(runner.errors.address));
+});
+
+```
+
+### Documentation
+
+comming soon!
+
