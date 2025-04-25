@@ -1,4 +1,4 @@
-# form-runner 1.0.14
+# form-runner 1.0.15
 Form Runner is a library for form management and validation for ***any*** front-end applications. It is designed to be performant, flexible, and easy to use. It leverages [mutation-tracker](https://www.npmjs.com/package/mutation-tracker) library to provide unopinionated interface to implement form management in front-end libraries of your choice, whether its react, vue etc. It also provides a simple API for handling form data, validations, errors, dirty and touched states.
 
 You can use your favorite or any other validation library with form-runner, whether it's Yup, Zod, Joi or any other.
@@ -51,22 +51,22 @@ export class CustomValidator implements IFormValidator<MyValidationMessage> {
 Below is the implement validator for Yup. Prety simple isn't it?
 
 ```javascript
-interface IYupValidationErrorMessage 
+interface IYupValidationMessage 
   extends IValidationMessage, Record<string, unknown> {
   errorCode: string
 }
 
 class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> 
-  implements IFormValidator<IYupValidationErrorMessage> {
+  implements IFormValidator<IYupValidationMessage> {
   
   constructor(private validationSchema: Yup.ObjectSchema<T>) { }
 
-  public validate(data: T): Promise<IYupValidationErrorMessage[]> {
+  public validate(data: T): Promise<IYupValidationMessage[]> {
     return this.validationSchema.validate(data, { abortEarly: false })
       .then((_) => [])
       .catch((err) => {
         // Make sure errors returned by Yup Validation Tests are 
-        // typed to IYupValidationErrorMessage interface.
+        // typed to IYupValidationMessage interface.
 
         //  Example:
         //  Yup.string().defined()
@@ -75,12 +75,12 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
         //        return this.createError({
         //        message: {
         //          key: this.path,  message: "Firstname is not provided."
-        //        } as Yup.Message<IYupValidationErrorMessage>
+        //        } as Yup.Message<IYupValidationMessage>
         //        });
         //      }
         //    return true;
         //   })
-        return err.errors as IYupValidationErrorMessage[];
+        return err.errors as IYupValidationMessage[];
       });
   }
 }
