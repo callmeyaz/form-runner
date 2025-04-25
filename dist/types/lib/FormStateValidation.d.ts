@@ -3,6 +3,7 @@ import { FormStateConfig } from "./FormStateConfig";
 import { IValidationMessage } from "./IValidationMessage";
 import { IFormValidator } from "./IFormValidator";
 import { IFormStateValidation } from "./IFormStateValidation";
+import { MutatedAttribute } from "mutation-tracker";
 export declare class FormStateValidation<T extends {
     [field: string]: any;
 }> implements IFormStateValidation<T> {
@@ -11,9 +12,9 @@ export declare class FormStateValidation<T extends {
     private _errorFlatList;
     constructor(validator: IFormValidator<IValidationMessage>, model: T, config?: FormStateConfig);
     get errorFlatList(): IValidationMessage[];
-    get errors(): {};
-    get touched(): {};
-    get dirty(): {};
+    get errors(): MutatedAttribute<T, string[]>;
+    get touched(): MutatedAttribute<T, boolean>;
+    get dirty(): MutatedAttribute<T, boolean>;
     private setErrorFlatList;
     getFieldTouched(fieldName: string): boolean;
     setFieldTouched(value: boolean, fieldName: string): void;

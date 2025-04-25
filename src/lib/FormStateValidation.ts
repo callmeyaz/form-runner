@@ -27,15 +27,15 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
   }
 
   get errors(): MutatedAttribute<T, string[]> {
-    return this._stateTrackers.errorStateTracker.state || {};
+    return this._stateTrackers.errorStateTracker.state;
   }
 
   get touched(): MutatedAttribute<T, boolean> {
-    return this._stateTrackers.touchedStateTracker.state || {};
+    return this._stateTrackers.touchedStateTracker.state;
   }
 
   get dirty(): MutatedAttribute<T, boolean> {
-    return this._stateTrackers.dirtyStateTracker.state || {};
+    return this._stateTrackers.dirtyStateTracker.state;
   }
 
   private setErrorFlatList(errors: IValidationMessage[]): void {

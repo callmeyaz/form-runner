@@ -6,5 +6,5 @@ export * from "./lib/IFormStateTrackers";
 export * from "./lib/IFormStateValidation";
 export * from "./lib/IFormValidator";
 export * from "./lib/IValidationMessage";
-export * from "./utils";
+export * from "./lib/utils";
 //# sourceMappingURL=index.js.map

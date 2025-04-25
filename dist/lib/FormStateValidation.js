@@ -2,7 +2,7 @@ import forEach from "lodash-es/forEach";
 import map from "lodash-es/map";
 import some from "lodash-es/some";
 import { FormStateTrackers } from "./FormStateTrackers";
-import { flattenObjectToArray } from "../utils";
+import { flattenObjectToArray } from "./utils";
 export class FormStateValidation {
     validator;
     _stateTrackers;
@@ -15,13 +15,13 @@ export class FormStateValidation {
         return this._errorFlatList;
     }
     get errors() {
-        return this._stateTrackers.errorStateTracker.state || {};
+        return this._stateTrackers.errorStateTracker.state;
     }
     get touched() {
-        return this._stateTrackers.touchedStateTracker.state || {};
+        return this._stateTrackers.touchedStateTracker.state;
     }
     get dirty() {
-        return this._stateTrackers.dirtyStateTracker.state || {};
+        return this._stateTrackers.dirtyStateTracker.state;
     }
     setErrorFlatList(errors) {
         this._errorFlatList = errors;
