@@ -16,15 +16,15 @@ In a browser:
 The JSON object below represents the state of a HTML form above:
 ```javascript
 var user = {
-	name: {
-		firstname: "John",
-		lastname: "Doe"
-	},
+  name: {
+    firstname: "John",
+    lastname: "Doe"
+  },
     roles: [
         "contributor",
         "administrator"
     ],
-	address: "123 Main Street"
+  address: "123 Main Street"
 }
 ```
 
@@ -60,25 +60,25 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
   
   constructor(private validationSchema: Yup.ObjectSchema<T>) { }
 
-	public validate(data: T): Promise<IYupValidationErrorMessage[]> {
+  public validate(data: T): Promise<IYupValidationErrorMessage[]> {
     return this.validationSchema.validate(data, { abortEarly: false })
       .then((_) => [])
       .catch((err) => {
         // Make sure errors returned by Yup Validation Tests are 
         // typed to IYupValidationErrorMessage interface.
 
-        //	Example:
-        //	Yup.string().defined()
-        //	  .test(function (item) {
-        //			if (!item) {
-        //			  return this.createError({
-        //				message: {
-        //					key: this.path,  message: "Firstname is not provided."
-        //				} as Yup.Message<IYupValidationErrorMessage>
-        //			  });
-        //			}
-        //		return true;
-        //	 })
+        //  Example:
+        //  Yup.string().defined()
+        //    .test(function (item) {
+        //      if (!item) {
+        //        return this.createError({
+        //        message: {
+        //          key: this.path,  message: "Firstname is not provided."
+        //        } as Yup.Message<IYupValidationErrorMessage>
+        //        });
+        //      }
+        //    return true;
+        //   })
         return err.errors as IYupValidationErrorMessage[];
       });
   }
@@ -101,14 +101,14 @@ runner.setFieldTouched(true, "name.lastname");
 // Validate form when needed (may be on click of a button)
 runner.validateAsync(user)
 .then((response) => {
-	// Validation passed or failed?
+  // Validation passed or failed?
     console.log("Form Validation: ", isValid ? "passed": "failed");
 
-	console.log("Dirty: ", JSON.stringify(runner.dirty))
-	console.log("Touched: ", JSON.stringify(runner.touched))
-	console.log("Errors: ", JSON.stringify(runner.errors))
-	...
-	...
+  console.log("Dirty: ", JSON.stringify(runner.dirty))
+  console.log("Touched: ", JSON.stringify(runner.touched))
+  console.log("Errors: ", JSON.stringify(runner.errors))
+  ...
+  ...
 });
 
 ```
@@ -165,33 +165,33 @@ runner.validateAsync(user)
 
 runner.validateAsync(user)
 .then((response) => {
-	// Validation passed or failed?
+  // Validation passed or failed?
     console.log("Form Validation: ", isValid ? "passed": "failed");
 
-	// Log state of the form
-	console.log("Dirty: ", JSON.stringify(runner.dirty))
-	console.log("Touched: ", JSON.stringify(runner.touched))
-	console.log("Errors: ", JSON.stringify(runner.errors))
+  // Log state of the form
+  console.log("Dirty: ", JSON.stringify(runner.dirty))
+  console.log("Touched: ", JSON.stringify(runner.touched))
+  console.log("Errors: ", JSON.stringify(runner.errors))
 
-	console.log("name.firstname: ", JSON.stringify(runner.dirty.name?.firstname));
-	console.log("name.firstname: ", JSON.stringify(runner.touched.name?.firstname));
-	console.log("name.firstname: ", JSON.stringify(runner.errors.name?.firstname));
+  console.log("name.firstname: ", JSON.stringify(runner.dirty.name?.firstname));
+  console.log("name.firstname: ", JSON.stringify(runner.touched.name?.firstname));
+  console.log("name.firstname: ", JSON.stringify(runner.errors.name?.firstname));
 
-	console.log("name.lastname: ", JSON.stringify(runner.dirty.name?.lastname))
-	console.log("name.lastname: ", JSON.stringify(runner.touched.name?.lastname))
-	console.log("name.lastname: ", JSON.stringify(runner.errors.name?.lastname));
+  console.log("name.lastname: ", JSON.stringify(runner.dirty.name?.lastname))
+  console.log("name.lastname: ", JSON.stringify(runner.touched.name?.lastname))
+  console.log("name.lastname: ", JSON.stringify(runner.errors.name?.lastname));
 
-	console.log("roles[0]: ", JSON.stringify(runner.dirty.roles?.[0]));
-	console.log("roles[0]: ", JSON.stringify(runner.touched.roles?.[0]));
-	console.log("roles[0]: ", JSON.stringify(runner.errors.roles?.[0]));
+  console.log("roles[0]: ", JSON.stringify(runner.dirty.roles?.[0]));
+  console.log("roles[0]: ", JSON.stringify(runner.touched.roles?.[0]));
+  console.log("roles[0]: ", JSON.stringify(runner.errors.roles?.[0]));
 
-	console.log("roles[1]: ", JSON.stringify(runner.dirty.roles?.[1]));
-	console.log("roles[1]: ", JSON.stringify(runner.touched.roles?.[1]));
-	console.log("roles[1]: ", JSON.stringify(runner.errors.roles?.[1]));
+  console.log("roles[1]: ", JSON.stringify(runner.dirty.roles?.[1]));
+  console.log("roles[1]: ", JSON.stringify(runner.touched.roles?.[1]));
+  console.log("roles[1]: ", JSON.stringify(runner.errors.roles?.[1]));
 
-	console.log("name.address: ", JSON.stringify(runner.dirty.address));
-	console.log("name.address: ", JSON.stringify(runner.touched.address));
-	console.log("name.address: ", JSON.stringify(runner.errors.address));
+  console.log("name.address: ", JSON.stringify(runner.dirty.address));
+  console.log("name.address: ", JSON.stringify(runner.touched.address));
+  console.log("name.address: ", JSON.stringify(runner.errors.address));
 });
 
 ```
