@@ -1,4 +1,4 @@
-# form-runner 0.0.8
+# form-runner 1.0.5
 Form Runner is a library for form management and validation for ***any*** front-end applications. It is designed to be performant, flexible, and easy to use. It leverages [mutation-tracker](https://www.npmjs.com/package/mutation-tracker) library to provide unopinionated interface to implement form management in front-end libraries of your choice, whether its react, vue etc. It also provides a simple API for handling form data, validations, errors, dirty and touched states.
 
 You can use your favorite or any other validation library with form-runner, whether it's Yup, Zod, Joi or any other.
@@ -86,26 +86,77 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> implements IFormValidator
 In your form, create instance of FormRunner for your form by passing it the validator and object to validate. Then track changes to your form by tracking click and change events and validate your for when needed.
 
 ```javascript
-
-// create instance of FormRunner
+// Create instance of FormRunner
 var validator = new YupValidator();
 var runner = new FormRunner<typeof user>(validator, user);
 
-// use functions below in form events.
-console.log("User: ", JSON.stringify(user))
+// Track form fields states using form events.
 runner.setFieldDirty(true, "name.firstname");
 runner.setFieldTouched(true, "name.lastname");
 
 // Validate form when needed (may be on click of a button)
 runner.validateAsync(user)
 .then((response) => {
+	// Validation passed or failed?
+    console.log("Form Validation: ", isValid ? "passed": "failed");
+
+	console.log("Dirty: ", JSON.stringify(runner.dirty))
+	console.log("Touched: ", JSON.stringify(runner.touched))
+	console.log("Errors: ", JSON.stringify(runner.errors))
+	...
+	...
+});
+
+```
+
+#### Implementation using *Yup*
+Below is an implementation of Form validation using Form Runner and Yup validation library.  
+
+```javascript
+// Create Yup validation schema
+export const userSchema: Yup.ObjectSchema<typeof user> = Yup.object({
+    name: Yup.object({
+        firstname: Yup.string().defined().test(function(val) { return !val ?
+            this.createError({ message: { key: this.path, message: "First name not provided" } as Yup.Message<IYupValidationMessage> })
+            : true 
+        }),
+        lastname: Yup.string().defined().test(function(val) { return !val ?
+            this.createError({ message: { key: this.path, message: "Last name not provided" } as Yup.Message<IYupValidationMessage> })
+            : true 
+        })
+    }),
+    roles:  Yup.array().defined().of(
+        Yup.string().defined().test(function(val) { return !val ?
+            this.createError({ message: { key: this.path, message: "Role not provided" } as Yup.Message<IYupValidationMessage> })
+            : true 
+        })
+    ),
+    address: Yup.string().defined().test(function(val) { return !val ?
+        this.createError({ message: { key: this.path, message: "Address not provided" } as Yup.Message<IYupValidationMessage> })
+        : true 
+    })
+});
+
+// Create instance of FormRunner
+var validator = new YupValidator(userSchema);
+var runner = new FormRunner<typeof user>(validator, user);
+
+console.log("User: ", JSON.stringify(user))
+
+// Track form fields states using form events.
+runner.setFieldDirty(true, "name.firstname");
+runner.setFieldTouched(true, "name.lastname");
+
+// Validate form when needed (may be on click of a submit button)
+runner.validateAsync(user)
+.then((response) => {
 
 runner.validateAsync(user)
 .then((response) => {
-	// Whether validation passed or failed?
+	// Validation passed or failed?
     console.log("Form Validation: ", isValid ? "passed": "failed");
 
-	// Log state of the form 
+	// Log state of the form
 	console.log("Dirty: ", JSON.stringify(runner.dirty))
 	console.log("Touched: ", JSON.stringify(runner.touched))
 	console.log("Errors: ", JSON.stringify(runner.errors))
