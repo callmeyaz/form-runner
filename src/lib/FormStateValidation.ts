@@ -5,10 +5,11 @@ import { FormFieldState } from "./FormFieldState";
 import { FormStateTrackers } from "./FormStateTrackers";
 import { FormStateConfig } from "./FormStateConfig";
 import { IValidationMessage } from "./IValidationMessage";
-import { flattenObjectToArray } from "../utils";
+import { flattenObjectToArray } from "./utils";
 import { IFormValidator } from "./IFormValidator";
 import { IFormStateTrackers } from "./IFormStateTrackers";
 import { IFormStateValidation } from "./IFormStateValidation";
+import { MutatedAttribute } from "mutation-tracker";
 
 export class FormStateValidation<T extends { [field: string]: any }> implements IFormStateValidation<T> {
 
@@ -21,23 +22,23 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
     this._stateTrackers = new FormStateTrackers(model, config);
   }
 
-  get errorFlatList() {
+  get errorFlatList(): IValidationMessage[] {
     return this._errorFlatList;
   }
 
-  get errors() {
+  get errors(): MutatedAttribute<T, string[]> {
     return this._stateTrackers.errorStateTracker.state || {};
   }
 
-  get touched() {
+  get touched(): MutatedAttribute<T, boolean> {
     return this._stateTrackers.touchedStateTracker.state || {};
   }
 
-  get dirty() {
+  get dirty(): MutatedAttribute<T, boolean> {
     return this._stateTrackers.dirtyStateTracker.state || {};
   }
 
-  private setErrorFlatList(errors: IValidationMessage[]) {
+  private setErrorFlatList(errors: IValidationMessage[]): void {
     this._errorFlatList = errors;
   }
 
@@ -46,15 +47,15 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
     return this._stateTrackers.touchedStateTracker.getMutatedByAttributeName(fieldName);
   }
 
-  public setFieldTouched(value: boolean, fieldName: string) {
+  public setFieldTouched(value: boolean, fieldName: string): void {
     this._stateTrackers.touchedStateTracker.setMutatedByAttributeName(value, fieldName);
   }
 
-  public setFieldsTouched(value: boolean, fieldNames: string[]) {
+  public setFieldsTouched(value: boolean, fieldNames: string[]): void {
     this._stateTrackers.touchedStateTracker.setMutatedByAttributeNames(value, fieldNames);
   }
 
-  public setTouchedAll(value: boolean) {
+  public setTouchedAll(value: boolean): void {
     this._stateTrackers.touchedStateTracker.setAll(value);
   }
   //#endregion
@@ -119,7 +120,7 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
       });
   }
 
-  private setErrorsAll(errors: IValidationMessage[]) {
+  private setErrorsAll(errors: IValidationMessage[]): void {
     this.setErrorFlatList(errors);
     this._stateTrackers.errorStateTracker.clear();
     var groups = Object.groupBy(errors, ({ key }) => key)
