@@ -1,7 +1,7 @@
 {
   "name": "form-runner",
   "description": "",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "main": "./dist/index.js",
   "repository": {
@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
     "lodash-es": "^4.17.21",
-    "mutation-tracker": "^1.0.28",
+    "mutation-tracker": "^1.0.30",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"

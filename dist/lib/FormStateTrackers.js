@@ -1,4 +1,11 @@
 import { MutationTracker } from "mutation-tracker";
+/***
+ * Class that manages required trackers for a form state.
+ * there 3 states that need to be tracked at the field level.
+ * 1 - Touched
+ * 2 - Dirty
+ * 3 - Error
+ */
 export class FormStateTrackers {
     _touchedStateTracker;
     _dirtyStateTracker;

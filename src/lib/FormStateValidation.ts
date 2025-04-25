@@ -2,47 +2,22 @@ import forEach from "lodash-es/forEach";
 import map from "lodash-es/map";
 import some from "lodash-es/some";
 import { FormFieldState } from "./FormFieldState";
-import { FormStateTrackers, IStateTrackers } from "./FormStateTrackers";
-import { FormValidationConfig } from "./FormValidationConfig";
-import { IValidationErrorMessage } from "./IValidationErrorMessage";
+import { FormStateTrackers } from "./FormStateTrackers";
+import { FormStateConfig } from "./FormValidationConfig";
+import { IValidationMessage } from "./IValidationErrorMessage";
 import { flattenObjectToArray } from "../utils";
-import { MutatedAttribute } from "mutation-tracker";
 import { IFormValidator } from "./IFormValidator";
-
-export interface IFormStateValidation<T> {
-  readonly errorFlatList: IValidationErrorMessage[];
-  readonly errors: MutatedAttribute<T, string[]>;
-  readonly touched: MutatedAttribute<T, boolean>;
-  readonly dirty: MutatedAttribute<T, boolean>;
-
-  getFieldTouched: (fieldName: string) => boolean;
-  setFieldTouched: (value: boolean, fieldName: string) => void;
-  setFieldsTouched: (value: boolean, fieldNames: string[]) => void;
-  setTouchedAll: (value: boolean) => void;
-
-  getFieldDirty: (fieldName: string) => boolean;
-  setFieldDirty: (value: boolean, fieldName: string) => void;
-  setFieldsDirty: (value: boolean, fieldNames: string[]) => void;
-  setDirtyAll: (value: boolean) => void;
-
-  getFieldErrors: (fieldName: string) => string[];
-  getFieldValid: (fieldName: string) => boolean;
-
-  isFormDirty: () => boolean;
-  isFormValid: () => boolean;
-  getFieldState: <T>(name: string, currentValue: T, previousValue: T) => FormFieldState<T>;
-
-  validateAsync: (model: T) => Promise<boolean>;
-}
+import { IFormStateTrackers } from "./IFormStateTrackers";
+import { IFormStateValidation } from "./IFormStateValidation";
 
 export class FormStateValidation<T extends { [field: string]: any }> implements IFormStateValidation<T> {
 
-  private _stateTrackers: IStateTrackers<T>;
-  private _errorFlatList: IValidationErrorMessage[] = [];
+  private _stateTrackers: IFormStateTrackers<T>;
+  private _errorFlatList: IValidationMessage[] = [];
 
   public constructor(
-    private validator: IFormValidator<IValidationErrorMessage>,
-    model: T, config?: FormValidationConfig) {
+    private validator: IFormValidator<IValidationMessage>,
+    model: T, config?: FormStateConfig) {
     this._stateTrackers = new FormStateTrackers(model, config);
   }
 
@@ -62,7 +37,7 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
     return this._stateTrackers.dirtyStateTracker.state || {};
   }
 
-  private setErrorFlatList(errors: IValidationErrorMessage[]) {
+  private setErrorFlatList(errors: IValidationMessage[]) {
     this._errorFlatList = errors;
   }
 
@@ -144,7 +119,7 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
       });
   }
 
-  private setErrorsAll(errors: IValidationErrorMessage[]) {
+  private setErrorsAll(errors: IValidationMessage[]) {
     this.setErrorFlatList(errors);
     this._stateTrackers.errorStateTracker.clear();
     var groups = Object.groupBy(errors, ({ key }) => key)

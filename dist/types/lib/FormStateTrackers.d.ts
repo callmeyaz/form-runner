@@ -1,19 +1,22 @@
 import { IMutationTracker } from "mutation-tracker";
-import { FormValidationConfig } from "./FormValidationConfig";
-export interface IStateTrackers<T> {
-    readonly touchedStateTracker: IMutationTracker<T, boolean>;
-    readonly dirtyStateTracker: IMutationTracker<T, boolean>;
-    readonly errorStateTracker: IMutationTracker<T, string[]>;
-}
+import { FormStateConfig } from "./FormValidationConfig";
+import { IFormStateTrackers } from "./IFormStateTrackers";
+/***
+ * Class that manages required trackers for a form state.
+ * there 3 states that need to be tracked at the field level.
+ * 1 - Touched
+ * 2 - Dirty
+ * 3 - Error
+ */
 export declare class FormStateTrackers<T extends {
     [field: string]: any;
-} | {}> implements IStateTrackers<T> {
+} | {}> implements IFormStateTrackers<T> {
     private _touchedStateTracker;
     private _dirtyStateTracker;
     private _errorStateTracker;
     get touchedStateTracker(): IMutationTracker<T, boolean>;
     get dirtyStateTracker(): IMutationTracker<T, boolean>;
     get errorStateTracker(): IMutationTracker<T, string[]>;
-    constructor(dataObject: T, config?: FormValidationConfig);
+    constructor(dataObject: T, config?: FormStateConfig);
 }
 //# sourceMappingURL=FormStateTrackers.d.ts.map

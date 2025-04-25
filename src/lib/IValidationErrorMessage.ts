@@ -1,7 +1,7 @@
 /**
  * interface for validation error message
  */
-export type IValidationErrorMessage = {
+export type IValidationMessage = {
   key: string,
   message: string;
 }
