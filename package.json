@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "tsx ./src/test-bed.ts",
+    "start": "tsx ./tests/test-bed.ts",
     "dev": "npm run pkg && npm run build && npm run start",
     "watch": "tsc -w",
     "pkg": "npm update --save"
