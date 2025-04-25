@@ -1,5 +1,5 @@
 import { IMutationTracker, MutationTracker } from "mutation-tracker";
-import { FormStateConfig } from "./FormValidationConfig";
+import { FormStateConfig } from "./FormStateConfig";
 import { IFormStateTrackers } from "./IFormStateTrackers";
 
 /***

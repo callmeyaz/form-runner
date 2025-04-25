@@ -1,5 +1,5 @@
 import { MutatedAttribute } from "mutation-tracker";
-import { IValidationMessage } from "./IValidationErrorMessage";
+import { IValidationMessage } from "./IValidationMessage";
 import { FormFieldState } from "./FormFieldState";
 export interface IFormStateValidation<T> {
     readonly errorFlatList: IValidationMessage[];

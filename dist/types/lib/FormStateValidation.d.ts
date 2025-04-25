@@ -1,6 +1,6 @@
 import { FormFieldState } from "./FormFieldState";
-import { FormStateConfig } from "./FormValidationConfig";
-import { IValidationMessage } from "./IValidationErrorMessage";
+import { FormStateConfig } from "./FormStateConfig";
+import { IValidationMessage } from "./IValidationMessage";
 import { IFormValidator } from "./IFormValidator";
 import { IFormStateValidation } from "./IFormStateValidation";
 export declare class FormStateValidation<T extends {

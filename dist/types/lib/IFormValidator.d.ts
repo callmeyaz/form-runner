@@ -1,4 +1,4 @@
-import { IValidationMessage } from "./IValidationErrorMessage";
+import { IValidationMessage } from "./IValidationMessage";
 /**
  * interface to implement form validation
  */
