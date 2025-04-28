@@ -49,7 +49,7 @@ export class CustomValidator implements IFormValidator<MyValidationMessage> {
 ```
 #### Example: Validator for *Yup*
 
-Below is the implement validator for Yup. Prety simple isn't it?
+Below is the implement validator for Yup. It's pretty simple, isn't it?
 
 ```javascript
 interface IYupValidationMessage 
@@ -89,14 +89,15 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
 
 ### Step 2 - Start using *FormRunner*
 
-In your form, create instance of FormRunner for your form by passing it the validator and object to validate. Then track changes to your form by tracking click and change events and validate your for when needed.
+In your form, create an instance of FormRunner for your form with passing the validator and the object to validate.
+Then track changes in your form by tracking clicks and change events and validate your form when needed.
 
 ```javascript
 // Create instance of FormRunner
 var validator = new YupValidator();
 var runner = new FormRunner<typeof user>(validator, user);
 
-// Track form fields states using form events.
+// Track form fields state using form events.
 runner.setFieldDirty(true, "name.firstname");
 runner.setFieldTouched(true, "name.lastname");
 
@@ -157,7 +158,7 @@ var runner = new FormRunner<typeof user>(validator, user);
 
 console.log("User: ", JSON.stringify(user))
 
-// Track form fields states using form events.
+// Track form fields state using form events.
 runner.setFieldDirty(true, "name.firstname");
 runner.setFieldTouched(true, "name.lastname");
 
@@ -197,5 +198,5 @@ runner.validateAsync(user)
 
 ### Documentation
 
-comming soon!
+coming soon!
 
