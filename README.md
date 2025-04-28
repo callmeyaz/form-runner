@@ -41,12 +41,13 @@ export interface IMyValidationMessage implements IValidationMessage {
 // Provide implementation of validator interface.
 export class CustomValidator implements IFormValidator<MyValidationMessage> {
   public validate(data: any): Promise<MyValidationMessage[]> {
-  // Below we are always returning no errors which means there are no errors.
+  // replace the line below which is always returning no errors with
+  // your custom form validation logic or using Yup, Zod etc.
       return Promise.resolve([]);
   };
 }
 ```
-#### Validator for *Yup*
+#### Example: Validator for *Yup*
 
 Below is the implement validator for Yup. Prety simple isn't it?
 
@@ -114,7 +115,7 @@ runner.validateAsync(user)
 
 ```
 
-#### Implementation using *Yup*
+#### Example: Implementation using *Yup*
 Below is an implementation of Form validation using Form Runner and Yup validation library.  
 
 ```javascript
