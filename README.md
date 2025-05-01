@@ -1,7 +1,7 @@
 # form-runner 1.0.15
 Form Runner is a library for form management and validation for ***any*** front-end applications. It is designed to be performant, flexible, and easy to use. It leverages [mutation-tracker](https://www.npmjs.com/package/mutation-tracker) library to provide unopinionated interface to implement form management in front-end libraries of your choice, whether its react, vue etc. It also provides a simple API for handling form data, validations, errors, dirty and touched states.
 
-You can use your favorite or any other validation library with form-runner, whether it's Yup, Zod, Joi or any other.
+You can use your favorite validation library with form-runner, whether it's Yup, Zod, Joi or any other.
 
 ### How to Use?
 
@@ -41,14 +41,15 @@ export interface IMyValidationMessage implements IValidationMessage {
 // Provide implementation of validator interface.
 export class CustomValidator implements IFormValidator<MyValidationMessage> {
   public validate(data: any): Promise<MyValidationMessage[]> {
-  // Below we are always returning no errors which means there are no errors.
+  // replace the line below which is always returning no errors with
+  // your custom form validation logic or using Yup, Zod etc.
       return Promise.resolve([]);
   };
 }
 ```
-#### Validator for *Yup*
+#### Example: Validator for *Yup*
 
-Below is the implement validator for Yup. Prety simple isn't it?
+Below is the implement validator for Yup. It's pretty simple, isn't it?
 
 ```javascript
 interface IYupValidationMessage 
@@ -88,14 +89,15 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
 
 ### Step 2 - Start using *FormRunner*
 
-In your form, create instance of FormRunner for your form by passing it the validator and object to validate. Then track changes to your form by tracking click and change events and validate your for when needed.
+In your form, create an instance of FormRunner for your form with passing the validator and the object to validate.
+Then track changes in your form by tracking clicks and change events and validate your form when needed.
 
 ```javascript
 // Create instance of FormRunner
 var validator = new YupValidator();
 var runner = new FormRunner<typeof user>(validator, user);
 
-// Track form fields states using form events.
+// Track form fields state using form events.
 runner.setFieldDirty(true, "name.firstname");
 runner.setFieldTouched(true, "name.lastname");
 
@@ -114,7 +116,7 @@ runner.validateAsync(user)
 
 ```
 
-#### Implementation using *Yup*
+#### Example: Implementation using *Yup*
 Below is an implementation of Form validation using Form Runner and Yup validation library.  
 
 ```javascript
@@ -156,7 +158,7 @@ var runner = new FormRunner<typeof user>(validator, user);
 
 console.log("User: ", JSON.stringify(user))
 
-// Track form fields states using form events.
+// Track form fields state using form events.
 runner.setFieldDirty(true, "name.firstname");
 runner.setFieldTouched(true, "name.lastname");
 
@@ -196,5 +198,5 @@ runner.validateAsync(user)
 
 ### Documentation
 
-comming soon!
+coming soon!
 
