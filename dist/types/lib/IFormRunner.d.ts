@@ -17,6 +17,7 @@ export interface IFormRunner<T> {
     getFieldErrors: (fieldName: string) => string[];
     getFieldValid: (fieldName: string) => boolean;
     isFormDirty: () => boolean;
+    isFormTouched: () => boolean;
     isFormValid: () => boolean;
     getFieldState: <T>(name: string, currentValue: T, previousValue: T) => FormFieldState<T>;
     validateAsync: (model: T) => Promise<boolean>;

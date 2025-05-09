@@ -68,6 +68,9 @@ export class FormRunner {
     isFormDirty() {
         return some(flattenObjectToArray(this._stateTrackers.dirtyStateTracker.state, "."), (item) => item.value);
     }
+    isFormTouched() {
+        return some(flattenObjectToArray(this._stateTrackers.touchedStateTracker.state, "."), (item) => item.value);
+    }
     isFormValid() {
         return !(this.errorFlatList.length);
     }

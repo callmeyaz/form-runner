@@ -22,6 +22,7 @@ export interface IFormRunner<T> {
   getFieldValid: (fieldName: string) => boolean;
 
   isFormDirty: () => boolean;
+  isFormTouched: () => boolean;
   isFormValid: () => boolean;
   getFieldState: <T>(name: string, currentValue: T, previousValue: T) => FormFieldState<T>;
 

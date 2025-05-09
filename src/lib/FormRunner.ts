@@ -95,6 +95,10 @@ export class FormRunner<T extends { [field: string]: any }> implements IFormRunn
     return some(flattenObjectToArray(this._stateTrackers.dirtyStateTracker.state, "."), (item) => item.value);
   }
 
+  public isFormTouched(): boolean {
+    return some(flattenObjectToArray(this._stateTrackers.touchedStateTracker.state, "."), (item) => item.value);
+  }
+
   public isFormValid(): boolean {
     return !(this.errorFlatList.length);
   }
