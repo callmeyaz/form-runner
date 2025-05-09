@@ -16,6 +16,6 @@
   "exclude": [
     "./node_modules/**/*",
     "./dist/**/*",
-    "tests/test-bed.ts"
+    "tests/main.test.ts"
   ]
 }

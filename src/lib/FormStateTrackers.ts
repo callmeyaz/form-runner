@@ -31,7 +31,7 @@ export class FormStateTrackers<T extends { [field: string]: any } | {}> implemen
     this._touchedStateTracker = MutationTracker(dataObject, {
       defaultValue: false,
       initialMutation: {
-        mutatedAttributes: config?.initiallyTouched,
+        mutatedAttributes: config?.initiallyTouched || [],
         mutatedValue: true
       }
     });
@@ -39,7 +39,7 @@ export class FormStateTrackers<T extends { [field: string]: any } | {}> implemen
     this._dirtyStateTracker = MutationTracker(dataObject, {
       defaultValue: false,
       initialMutation: {
-        mutatedAttributes: config?.initiallyDirty,
+        mutatedAttributes: config?.initiallyDirty || [],
         mutatedValue: true
       }
     });

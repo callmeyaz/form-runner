@@ -23,14 +23,14 @@ export class FormStateTrackers {
         this._touchedStateTracker = MutationTracker(dataObject, {
             defaultValue: false,
             initialMutation: {
-                mutatedAttributes: config?.initiallyTouched,
+                mutatedAttributes: config?.initiallyTouched || [],
                 mutatedValue: true
             }
         });
         this._dirtyStateTracker = MutationTracker(dataObject, {
             defaultValue: false,
             initialMutation: {
-                mutatedAttributes: config?.initiallyDirty,
+                mutatedAttributes: config?.initiallyDirty || [],
                 mutatedValue: true
             }
         });
