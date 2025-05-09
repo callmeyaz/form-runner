@@ -1,9 +1,9 @@
 {
   "name": "form-runner",
   "description": "",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "./dist/main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/callmeyaz/form-runner.git"
@@ -15,7 +15,7 @@
     "watch": "tsc -w",
     "pkg": "npm update --save"
   },
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/types/main.d.ts",
   "type": "module",
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
