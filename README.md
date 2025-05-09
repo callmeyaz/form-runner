@@ -1,4 +1,4 @@
-# form-runner 1.0.19
+# form-runner 1.0.20
 Form Runner is a library for form management and validation for ***any*** front-end applications. It is designed to be performant, flexible, and easy to use. It leverages [mutation-tracker](https://www.npmjs.com/package/mutation-tracker) library to provide unopinionated interface to implement form management in front-end libraries of your choice, whether its react, vue etc. It also provides a simple API for handling form data, validations, errors, dirty and touched states.
 
 You can use your favorite validation library with form-runner, whether it's Yup, Zod, Joi or any other.

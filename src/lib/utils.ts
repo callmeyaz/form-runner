@@ -1,4 +1,3 @@
-import isArray from 'lodash-es/isArray';
 import isObject from 'lodash-es/isObject';
 
 export function flattenObjectToArray(obj: any, separator: string) {
@@ -20,12 +19,3 @@ export function flattenObjectToArray(obj: any, separator: string) {
   return result;
 }
 
-export function deepFreeze<T>(obj: T) {
-  Object.freeze(obj);
-  for (const key in obj) {
-    if (isObject(obj[key] || isArray(obj[key]))) {
-      deepFreeze(obj[key]);
-    }
-  }
-  return obj;
-}

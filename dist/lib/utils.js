@@ -1,4 +1,3 @@
-import isArray from 'lodash-es/isArray';
 import isObject from 'lodash-es/isObject';
 export function flattenObjectToArray(obj, separator) {
     const result = [];
@@ -17,14 +16,5 @@ export function flattenObjectToArray(obj, separator) {
     }
     recurse(obj, '', separator);
     return result;
-}
-export function deepFreeze(obj) {
-    Object.freeze(obj);
-    for (const key in obj) {
-        if (isObject(obj[key] || isArray(obj[key]))) {
-            deepFreeze(obj[key]);
-        }
-    }
-    return obj;
 }
 //# sourceMappingURL=utils.js.map
