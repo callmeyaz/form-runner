@@ -32,7 +32,7 @@ var user = {
 }
 ```
 
-### Step 1 - Plug your favorite validation library to form-runner
+### Step 1 - Plug your favorite validation library in to form-runner
 Plugging in an validation library is very straight forward. Just provide implementation of two interfaces *IValidationMessage* and *IFormValidator* and you are done:
 
 ```javascript
@@ -92,10 +92,12 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
 }
 ```
 
-### Step 2 - Start using *FormRunner*
+### Step 2 - Start using *Form-Runner*
 
-In your form, create an instance of FormRunner for your form with passing the validator and the object to validate.
-Then track changes in your form by tracking clicks and change events and validate your form when needed.
+With Step 1 you are all set. In your form, create an instance of FormRunner for your form with passing 
+the Yup validator and the JSON object to validate.  
+
+Then start tracking changes in your form through javascript *onclick*, *onblur* and *onchange* events and validate your form when needed.
 
 ```javascript
 // Create instance of FormRunner
