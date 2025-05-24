@@ -60,10 +60,9 @@ interface IYupValidationMessage
   extends IValidationMessage, Record<string, unknown> {
 }
 
-// Make sure errors returned by Yup Validation are typed to IYupValidationMessage interface.
-// Below we achieve that using test() functions which sets errors of type IYupValidationMessage.
-// You can setup up multiple test for same property since form-runner can manage multiple errors
-// for same form field.
+// Make sure errors returned by Yup Schema Validation are typed to IYupValidationMessage interface.
+// Below, we achieve that using test() functions for Yup Schema which sets errors of type IYupValidationMessage.
+// We can setup up multiple test for same property since form-runner can manage multiple errors for same form field.
 
 //  Example:
 //  Yup.string().defined()
