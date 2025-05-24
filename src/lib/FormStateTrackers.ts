@@ -15,14 +15,23 @@ export class FormStateTrackers<T extends { [field: string]: any } | {}> implemen
   private _dirtyStateTracker: IMutationTracker<T, boolean>;
   private _errorStateTracker: IMutationTracker<T, string[]>;
 
+  /**
+   * Mutation-Tracker for touched fields
+   */
   public get touchedStateTracker(): IMutationTracker<T, boolean> {
     return this._touchedStateTracker;
   }
 
+  /**
+   * Mutation-Tracker for dirty fields
+   */
   public get dirtyStateTracker(): IMutationTracker<T, boolean> {
     return this._dirtyStateTracker;
   }
 
+  /**
+   * Mutation-Trackr for error fields
+   */
   public get errorStateTracker(): IMutationTracker<T, string[]> {
     return this._errorStateTracker;
   }

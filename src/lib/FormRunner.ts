@@ -42,7 +42,6 @@ export class FormRunner<T extends { [field: string]: any }> implements IFormRunn
     this._errorFlatList = errors;
   }
 
-  //#region touched functions
   public getFieldTouched(fieldName: string): boolean {
     return this._stateTrackers.touchedStateTracker.getMutatedByAttributeName(fieldName);
   }
@@ -58,9 +57,7 @@ export class FormRunner<T extends { [field: string]: any }> implements IFormRunn
   public setTouchedAll(value: boolean): void {
     this._stateTrackers.touchedStateTracker.setAll(value);
   }
-  //#endregion
 
-  //#region dirty functions
   public getFieldDirty(fieldName: string): boolean {
     return this._stateTrackers.dirtyStateTracker.getMutatedByAttributeName(fieldName);
   }
@@ -76,20 +73,15 @@ export class FormRunner<T extends { [field: string]: any }> implements IFormRunn
   public setDirtyAll(value: boolean): void {
     this._stateTrackers.dirtyStateTracker.setAll(value);
   }
-  //#endregion
 
-  //#region error functions
   public getFieldErrors(fieldName: string): string[] {
     var errors = this._stateTrackers.errorStateTracker.getMutatedByAttributeName(fieldName)
     return map(errors, item => item);
   }
-  //#endregion
 
-  //#region validation functions
   public getFieldValid(fieldName: string): boolean {
     return (this._stateTrackers.errorStateTracker.getMutatedByAttributeName(fieldName).length ?? 0) <= 0;
   }
-  //#endregion
 
   public isFormDirty(): boolean {
     return some(flattenObjectToArray(this._stateTrackers.dirtyStateTracker.state, "."), (item) => item.value);
