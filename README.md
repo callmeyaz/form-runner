@@ -58,8 +58,25 @@ Below is the implement validator for Yup. It's pretty simple, isn't it?
 ```javascript
 interface IYupValidationMessage 
   extends IValidationMessage, Record<string, unknown> {
-  errorCode: string
 }
+
+// Make sure errors returned by Yup Validation are typed to IYupValidationMessage interface.
+// Below we achieve that using test() functions which sets errors of type IYupValidationMessage.
+// You can setup up multiple test for same property since form-runner can manage multiple errors
+// for same form field.
+
+//  Example:
+//  Yup.string().defined()
+//    .test(function (item) {
+//      if (!item) {
+//        return this.createError({
+//        message: {
+//          key: this.path,  message: "Firstname is not provided."
+//        } as Yup.Message<IYupValidationMessage>
+//        });
+//      }
+//    return true;
+//   })
 
 class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> 
   implements IFormValidator<IYupValidationMessage> {
@@ -70,21 +87,6 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
     return this.validationSchema.validate(data, { abortEarly: false })
       .then((_) => [])
       .catch((err) => {
-        // Make sure errors returned by Yup Validation Tests are 
-        // typed to IYupValidationMessage interface.
-
-        //  Example:
-        //  Yup.string().defined()
-        //    .test(function (item) {
-        //      if (!item) {
-        //        return this.createError({
-        //        message: {
-        //          key: this.path,  message: "Firstname is not provided."
-        //        } as Yup.Message<IYupValidationMessage>
-        //        });
-        //      }
-        //    return true;
-        //   })
         return err.errors as IYupValidationMessage[];
       });
   }
