@@ -1,7 +1,10 @@
 # form-runner 1.0.21
-Form Runner is a library for form management and validation for ***any*** front-end applications. It is designed to be performant, flexible, and easy to use. It leverages [mutation-tracker](https://www.npmjs.com/package/mutation-tracker) library to provide unopinionated interface to implement form management in front-end libraries of your choice, whether its react, vue etc. It also provides a simple API for handling form data, validations, errors, dirty and touched states.
+Form Runner is a form management and validation library for ***any*** front-end of your choice any any form validation library such as [Yup](https://github.com/jquense/yup), [Zod](https://github.com/colinhacks/zod), [Joi](https://github.com/hapijs/joi) etc.
+It is designed to be performant, flexible, and easy to use. 
+It leverages [mutation-tracker](https://www.npmjs.com/package/mutation-tracker) library to provide unopinionated interface to implement your own form management library.
+[react-form-runner](https://github.com/callmeyaz/react-form-runner) is one such implementation for React. It also provides a simple API for handling form data, validations, errors, dirty and touched states.
 
-You can use your favorite validation library with form-runner, whether it's Yup, Zod, Joi or any other.
+
 
 ### How to Use?
 
@@ -13,7 +16,7 @@ In a browser:
 <input type="text" id="lastname" />
 <textarea id="address"></textarea>
 ```
-The JSON object below represents the state of a HTML form above:
+The JSON object below represents the form state of a HTML form above:
 ```javascript
 var user = {
   name: {
