@@ -1,24 +1,29 @@
-# form-runner 1.0.21
-Form Runner is a form management and validation library for ***any*** front-end of your choice any any form validation library such as [Yup](https://github.com/jquense/yup), [Zod](https://github.com/colinhacks/zod), [Joi](https://github.com/hapijs/joi) etc.  
+# Form Runner 1.0
+Form Runner is a front-end agnostic and unopinionated *Form Validation* library to be used with any front-end of your choice.
+It provides a plugable interface to levarage all available validation libraries such as [Yup](https://github.com/jquense/yup), [Zod](https://github.com/colinhacks/zod), [Joi](https://github.com/hapijs/joi) etc.  
 
-It is designed to be performant, flexible, easy to use and leverages [mutation-tracker](https://www.npmjs.com/package/mutation-tracker) library to provide unopinionated interface to implement your own form management library.  
+[react-form-runner](https://github.com/callmeyaz/react-form-runner) is specialized implementation of Form Runner for React.
 
-[react-form-runner](https://github.com/callmeyaz/react-form-runner) is one such implementation for React. It also provides a simple API for handling form data, validations, errors, dirty and touched states.  
+# Why Form Runner?
+Before Fom Runner, all previous Form Validation libraries are platform dependent or strongly tied with their own front-end libraries.
+Form Runner is the first Form validation library of it's kind that provides platform independence. 
+We can use Form Runner React, Vue or even Vanilla Javascript without additional overhead.
 
-
-
-### How to Use?
+# Usage
 
 Consider the HTML below:
 
 In a browser:
+
 ```browser
 <input type="text" id="firstname" />
 <input type="text" id="lastname" />
 <textarea id="address"></textarea>
 ```
 The JSON object below represents the form state of a HTML form above:
+
 ```javascript
+
 var user = {
   name: {
     firstname: "John",
@@ -30,6 +35,7 @@ var user = {
     ],
   address: "123 Main Street"
 }
+
 ```
 
 ### Step 1 - Plug your favorite validation library in to form-runner
