@@ -5,7 +5,8 @@ It provides a plugable interface to levarage all available validation libraries 
 # Validation plugins for Form Runner
 Following validation plugins for form-runner are already available to use with form-runner:
 
-[Yup](https://github.com/jquense/yup), [Zod](https://github.com/colinhacks/zod)
+- [form-runner-yup-plugin](https://github.com/callmeyaz/form-runner-yup-plugin)
+- [form-runner-zod-plugin](https://github.com//callmeyaz/form-runner-zod-plugin)
 
 [react-form-runner](https://github.com/callmeyaz/react-form-runner) is specialized implementation of Form Runner for React.
 
