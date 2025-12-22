@@ -83,16 +83,27 @@ interface IYupValidationMessage
 //    return true;
 //   })
 
-class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> 
+export class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> 
   implements IFormValidator<IYupValidationMessage> {
   
-  constructor(private validationSchema: Yup.ObjectSchema<T>) { }
+  constructor(private validationSchema: Yup.Schema<T>) { }
 
   public validate(data: T): Promise<IYupValidationMessage[]> {
     return this.validationSchema.validate(data, { abortEarly: false })
       .then((_) => [])
       .catch((err) => {
-        return err.errors as IYupValidationMessage[];
+        if (err instanceof Yup.ValidationError) {
+          var errors = err.inner;
+          if (Array.isArray(errors)) {
+            return errors.map((item) => {
+              return {
+                key: item.path,
+                message: item.message
+              } as IYupValidationMessage;
+            });
+          }
+        }
+        throw err;
       });
   }
 }
