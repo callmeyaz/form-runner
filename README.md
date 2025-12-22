@@ -118,7 +118,7 @@ runner.setFieldTouched(true, "name.lastname");
 runner.validateAsync(user)
 .then((response) => {
   // Validation passed or failed?
-    console.log("Form Validation: ", isValid ? "passed": "failed");
+    console.log("Form Validation: ", response ? "passed": "failed");
 
   console.log("Dirty: ", JSON.stringify(runner.dirty))
   console.log("Touched: ", JSON.stringify(runner.touched))
@@ -179,7 +179,7 @@ runner.setFieldTouched(true, "name.lastname");
 runner.validateAsync(user)
 .then((response) => {
   // Validation passed or failed?
-    console.log("Form Validation: ", isValid ? "passed": "failed");
+    console.log("Form Validation: ", response ? "passed": "failed");
 
   // Log state of the form
   console.log("Dirty: ", JSON.stringify(runner.dirty))
