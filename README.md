@@ -128,36 +128,13 @@ Below is an implementation of Form validation using Form Runner and Yup validati
 
 ```javascript
 // Create Yup validation schema
-export const userSchema: Yup.ObjectSchema<typeof user> = Yup.object({
+const userSchema: Yup.Schema = Yup.object({
     name: Yup.object({
-      firstname: Yup.string().defined().test(function(val) { return !val ?
-        this.createError({ 
-          message: { key: this.path, message: "First name not provided" } as 
-            Yup.Message<IYupValidationMessage> })
-        : true 
-      }),
-      lastname: Yup.string().defined().test(function(val) { return !val ?
-        this.createError({ 
-          message: { key: this.path, message: "Last name not provided" } as 
-            Yup.Message<IYupValidationMessage> })
-        : true 
-      })
+        firstname: Yup.string().required("First name not provided"),
+        lastname: Yup.string().required("Last name is not provided")
     }),
-    roles:  Yup.array().defined().of(
-      Yup.string().defined().test(function(val) { return !val ?
-        this.createError({ 
-          message: { key: this.path, message: "Role not provided" } as 
-            Yup.Message<IYupValidationMessage> })
-        : true 
-      })
-    ),
-    address: Yup.string().defined().test(function(val) { return !val ?
-      this.createError({ 
-        message: { key: this.path, message: "Address not provided" } as 
-            Yup.Message<IYupValidationMessage> })
-      : true 
-    })
-  });
+    address: Yup.string().required("Address not provided")
+});
 
 // Create instance of FormRunner
 var validator = new YupValidator(userSchema);
@@ -172,6 +149,8 @@ runner.setFieldTouched(true, "name.lastname");
 // Validate form when needed (may be on click of a submit button)
 runner.validateAsync(user)
 .then((response) => {
+  var isValid = response;
+
   // Validation passed or failed?
     console.log("Form Validation: ", response ? "passed": "failed");
 
