@@ -25,23 +25,6 @@ In a browser:
 <input type="text" id="lastname" />
 <textarea id="address"></textarea>
 ```
-The JSON object below represents the form state of a HTML form above:
-
-```javascript
-
-var user = {
-  name: {
-    firstname: "John",
-    lastname: "Doe"
-  },
-    roles: [
-        "contributor",
-        "administrator"
-    ],
-  address: "123 Main Street"
-}
-
-```
 
 ### Step 1 - Plug your favorite validation library in to form-runner
 Plugging in an validation library is very straight forward. Just provide implementation of two interfaces *IValidationMessage* and *IFormValidator* and you are done:
@@ -103,11 +86,32 @@ After Step 1 you are all set to use the form-runner in your application forms.
 Track changes in your form through javascript *onclick*, *onblur* and *onchange* events and validate your html forms when needed.
 
 #### Example: Implementation using *Yup*
-Below is an implementation of Form validation using Form Runner and Yup validator mentioned above.  
+Below is an implementation of Form validation using Form Runner and Yup validator mentioned above.
+
+The JSON object below represents the form state of a HTML form above:
+
+```javascript
+
+var user = {
+  name: {
+    firstname: "John",
+    lastname: "Doe"
+  },
+    roles: [
+        "contributor",
+        "administrator"
+    ],
+  address: "123 Main Street"
+}
+
+```
+
+The Yup validation schema for above JSON can be:
 
 ```javascript
 
 // Create Yup validation schema
+
 const userSchema: Yup.Schema = Yup.object({
     name: Yup.object({
         firstname: Yup.string().required("First name not provided"),
@@ -118,9 +122,12 @@ const userSchema: Yup.Schema = Yup.object({
 
 ```
 
+Finally, below is how we can track the changes in the form.
+
 ```javascript
 
 // Track form fields state using form events.
+
 runner.setFieldDirty(true, "name.firstname");
 runner.setFieldTouched(true, "name.lastname");
 
