@@ -94,39 +94,14 @@ export class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
 
 ### Step 2 - Start using *Form-Runner*
 
-With Step 1 you are all set. In your form, create an instance of FormRunner for your form with passing 
-the Yup validator and the JSON object to validate.  
-
-Then start tracking changes in your form through javascript *onclick*, *onblur* and *onchange* events and validate your form when needed.
-
-```javascript
-// Create instance of FormRunner
-var validator = new YupValidator();
-var runner = new FormRunner<typeof user>(validator, user);
-
-// Track form fields state using form events.
-runner.setFieldDirty(true, "name.firstname");
-runner.setFieldTouched(true, "name.lastname");
-
-// Validate form when needed (may be on click of a button)
-runner.validateAsync(user)
-.then((response) => {
-  // Validation passed or failed?
-    console.log("Form Validation: ", response ? "passed": "failed");
-
-  console.log("Dirty: ", JSON.stringify(runner.dirty))
-  console.log("Touched: ", JSON.stringify(runner.touched))
-  console.log("Errors: ", JSON.stringify(runner.errors))
-  ...
-  ...
-});
-
-```
+After Step 1 you are all set to use the form-runner in your application forms.
+Track changes in your form through javascript *onclick*, *onblur* and *onchange* events and validate your html forms when needed.
 
 #### Example: Implementation using *Yup*
-Below is an implementation of Form validation using Form Runner and Yup validation library.  
+Below is an implementation of Form validation using Form Runner and Yup validator mentioned above.  
 
 ```javascript
+
 // Create Yup validation schema
 const userSchema: Yup.Schema = Yup.object({
     name: Yup.object({
@@ -136,11 +111,9 @@ const userSchema: Yup.Schema = Yup.object({
     address: Yup.string().required("Address not provided")
 });
 
-// Create instance of FormRunner
-var validator = new YupValidator(userSchema);
-var runner = new FormRunner<typeof user>(validator, user);
+```
 
-console.log("User: ", JSON.stringify(user))
+```javascript
 
 // Track form fields state using form events.
 runner.setFieldDirty(true, "name.firstname");
@@ -180,7 +153,9 @@ runner.validateAsync(user)
   console.log("name.address: ", JSON.stringify(runner.errors.address));
 });
 
+
 ```
+
 
 ### Documentation
 
