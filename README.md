@@ -183,7 +183,11 @@ runner.validateAsync(user)
 ## FormRunner<T extends { [field: string]: any }>
 This is FormRunner utility that is the brain of the whole library.
 
-Following are the members of the FormRunner utility:
+### Constructor
+
+####  constructor(validator: IFormValidator<IValidationMessage>, model: T, config?:  FormStateConfig)
+This is the constuctor for FormRunner. It requires an IFormValidator implementation, the model
+that needs to be validated and the configuration.
 
 ### Properties
 
@@ -198,6 +202,8 @@ Error state of the form.
 
 #### *errorFlatList*
 Error state of the form as a flat list.
+
+### Functions
 
 #### *getFieldTouched(fieldName: string): boolean*
 Returns true/false for touched state of a given Form Field.
@@ -248,9 +254,7 @@ Returns true/false based on the model validation. Internally, model is passed
 to custom validator for validation and results from the custom validator are
 evaluated to deduce whether the Form is valid or not.
 
-###  constructor(validator: IFormValidator<IValidationMessage>, model: T, config?:  FormStateConfig)
-This is the constuctor for FormRunner. It requires an IFormValidator implementation, the model
-that needs to be validated and the configuration.
+-
 
 ## IValidationMessage
 This is interface defines the standard validation message format. It can 
@@ -263,6 +267,8 @@ This member must be unique and identifies field for which the validation has fai
 ### message
 This member defines the error message for the failed validation.
 
+-
+
 ## IFormValidator<M extends IValidationMessage>
 This is standard interface to implement a custom validator.
 
@@ -271,13 +277,14 @@ This is the only member of the interface that needs impelemtation.
 This function receives dat of *any* type and returns an array of objects which 
 are of type or extension of IValidationMessage.
 
-#### FormStateConfig
+--
+
+## FormStateConfig
 This is the initial configuration for Form Runner
 
-#### initiallyTouched
+### initiallyTouched
 Settings to set some properties as 'touched' initially. 
 
-##### initiallyDirty
+### initiallyDirty
 Settings to set some properties as 'dirty' initially. 
-
 
