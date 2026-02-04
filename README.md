@@ -187,16 +187,16 @@ Following are the members of the FormRunner utility:
 
 ### Properties
 
-#### *FormRunner.touched*
+#### *touched*
 Touched state of the form.
 
-#### *FormRunner.dirty*
+#### *dirty*
 Dirty state of the form.
 
-#### *FormRunner.errors*
+#### *errors*
 Error state of the form.
 
-#### *FormRunner.errorFlatList*
+#### *errorFlatList*
 Error state of the form as a flat list.
 
 #### *getFieldTouched(fieldName: string): boolean*
