@@ -180,5 +180,104 @@ runner.validateAsync(user)
 
 ### Documentation
 
-coming soon!
+#### FormRunner<T extends { [field: string]: any }>
+This is FormRunner utility that is the brain of the whole library.
+
+Following are the members of the FormRunner utility:
+
+##### Properties
+
+*FormRunner.touched*
+Touched state of the form.
+
+*FormRunner.dirty*
+Dirty state of the form.
+
+*FormRunner.errors*
+Error state of the form.
+
+*FormRunner.errorFlatList*
+Error state of the form as a flat list.
+
+*getFieldTouched(fieldName: string): boolean*
+Returns true/false for touched state of a given Form Field.
+
+*setFieldTouched(value: boolean, fieldName: string): void*
+Sets true/false for touched state of a given Form Field.
+
+*setFieldsTouched(value: boolean, fieldNames: string[]): void*
+Sets true/false for touched state of multiple given Form Fields.
+
+*setTouchedAll(value: boolean): void*
+Sets true/false for touched state of all the Form Fields.
+
+*getFieldDirty(fieldName: string): boolean*
+Returns true/false for dirty state of a given Form Field.
+
+*setFieldDirty(value: boolean, fieldName: string): void*
+Sets true/false for dirty state of a given Form Field.
+
+*setFieldsDirty(value: boolean, fieldNames: string[]): void*
+Sets true/false for dirty state of multiple given Form Fields.
+
+*setDirtyAll(value: boolean): void*
+Sets true/false for dirty state of all the Form Fields.
+
+*getFieldErrors(fieldName: string): string[]*
+Returns validation error messages for a given Form Field.
+
+*getFieldValid(fieldName: string): boolean*
+Returns true/false for valid state of a given Form Field.
+
+*isFormDirty(): boolean*
+Returns true/false for dirty state of the whole Form.
+
+*isFormTouched(): boolean*
+Returns true/false for touched state of the whole Form.
+
+*isFormValid(): boolean*
+Returns true/false for valid state of the whole Form.
+
+*getFieldState<T>(name: string, currentValue: T, previousValue: T): FormFieldState<T>*
+Returns detailed state information of a Form Field.
+'currentValue' and 'previousValue' are transient values returned without any change,
+within the returned FormFieldState object.
+
+*validateAsync(model: T): Promise<boolean>*
+Returns true/false based on the model validation. Internally, model is passed
+to custom validator for validation and results from the custom validator are
+evaluated to deduce whether the Form is valid or not.
+
+#####  constructor(validator: IFormValidator<IValidationMessage>, model: T, config?:  FormStateConfig)
+This is the constuctor for FormRunner. It requires an IFormValidator implementation, the model
+that needs to be validated and the configuration.
+
+#### IValidationMessage
+This is interface defines the standard validation message format. It can 
+be extended for custom processing but Form-Runner expects the bare minimum
+IValidationMessage members being available.
+
+##### Key
+This member must be unique and identifies field for which the validation has failed.
+
+##### message
+This member defines the error message for the failed validation.
+
+#### IFormValidator<M extends IValidationMessage>
+This is standard interface to implement a custom validator.
+
+##### validate: (data: any) => Promise<M[]>
+This is the only member of the interface that needs impelemtation.
+This function receives dat of *any* type and returns an array of objects which 
+are of type or extension of IValidationMessage.
+
+#### FormStateConfig
+This is the initial configuration for Form Runner
+
+##### initiallyTouched
+Settings to set some properties as 'touched' initially. 
+
+##### initiallyDirty
+Settings to set some properties as 'dirty' initially. 
+
 
