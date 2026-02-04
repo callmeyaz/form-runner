@@ -56,10 +56,13 @@ export class CustomValidator implements IFormValidator<MyValidationMessage> {
 Below is the implement validator for Yup. It's pretty simple, isn't it?
 
 ```javascript
+
+// Extend IValidationMessage interface for custom implementation
 interface IYupValidationMessage 
   extends IValidationMessage, Record<string, unknown> {
 }
 
+// Provide implementation for IFormValidator using your favorite Validation Library
 export class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> 
   implements IFormValidator<IYupValidationMessage> {
   
