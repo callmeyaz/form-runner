@@ -1,17 +1,22 @@
 # Form Runner 1.0
-Form Runner is a front-end agnostic and unopinionated *Form Validation* library to be used with any front-end of your choice.
-It provides a plugable interface to levarage all available validation libraries such as [Yup](https://github.com/jquense/yup), [Zod](https://github.com/colinhacks/zod), [Joi](https://github.com/hapijs/joi) etc.  
+Form Runner is an unopinionated *Form Validation* library for front-end of your choice.
+Form Runner can connect with any validation library of your choice such as [Yup](https://github.com/jquense/yup), [Zod](https://github.com/colinhacks/zod), [Joi](https://github.com/hapijs/joi) etc.
+
+In fact there already plugins available to use the above three validation libraries with Form Runner.
 
 # Validation plugins for Form Runner
-Following validation plugins for form-runner are already available to use with form-runner:
+Following validation plugins are already available to use with form-runner:
 
 - [form-runner-yup-plugin](https://github.com/callmeyaz/form-runner-yup-plugin)
 - [form-runner-zod-plugin](https://github.com//callmeyaz/form-runner-zod-plugin)
+- [form-runner-joi-plugin](https://github.com/callmeyaz/form-runner-joi-plugin)
 
 # Why Form Runner?
-Before Fom Runner, all previous Form Validation libraries are platform dependent or strongly tied with their own front-end libraries.
-Form Runner is the first Form validation library of it's kind that provides platform independence. 
-We can use Form Runner React, Vue or even Vanilla Javascript without additional overhead.
+Other than Fom Runner, all Form Validation libraries are platform dependent or strongly tied with their specific front-end libraries.
+
+Form Runner is the first Form validation library of it's kind that provides platform independence.
+
+We can use Form Runner with React, Vue or even Vanilla Javascript without additional overhead.
 
 [react-form-runner](https://github.com/callmeyaz/react-form-runner) is specialized implementation of Form Runner for React.
 
