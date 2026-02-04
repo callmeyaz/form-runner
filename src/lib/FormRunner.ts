@@ -22,24 +22,20 @@ export class FormRunner<T extends { [field: string]: any }> implements IFormRunn
     this._stateTrackers = new FormStateTrackers(model, config);
   }
 
-  get errorFlatList(): IValidationMessage[] {
+  public get errorFlatList(): IValidationMessage[] {
     return this._errorFlatList;
   }
 
-  get errors(): MutatedAttribute<T, string[]> {
+  public get errors(): MutatedAttribute<T, string[]> {
     return this._stateTrackers.errorStateTracker.state;
   }
 
-  get touched(): MutatedAttribute<T, boolean> {
+  public get touched(): MutatedAttribute<T, boolean> {
     return this._stateTrackers.touchedStateTracker.state;
   }
 
-  get dirty(): MutatedAttribute<T, boolean> {
+  public get dirty(): MutatedAttribute<T, boolean> {
     return this._stateTrackers.dirtyStateTracker.state;
-  }
-
-  private setErrorFlatList(errors: IValidationMessage[]): void {
-    this._errorFlatList = errors;
   }
 
   public getFieldTouched(fieldName: string): boolean {
@@ -124,5 +120,9 @@ export class FormRunner<T extends { [field: string]: any }> implements IFormRunn
       var messages = group?.map(x => x.message) || [];
       this._stateTrackers.errorStateTracker.setMutatedByAttributeName(messages, key);
     });
+  }
+
+  private setErrorFlatList(errors: IValidationMessage[]): void {
+    this._errorFlatList = errors;
   }
 }
