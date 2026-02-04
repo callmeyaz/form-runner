@@ -254,7 +254,7 @@ Returns true/false based on the model validation. Internally, model is passed
 to custom validator for validation and results from the custom validator are
 evaluated to deduce whether the Form is valid or not.
 
--
+---
 
 ## IValidationMessage
 This is interface defines the standard validation message format. It can 
@@ -267,7 +267,7 @@ This member must be unique and identifies field for which the validation has fai
 ### message
 This member defines the error message for the failed validation.
 
--
+---
 
 ## IFormValidator<M extends IValidationMessage>
 This is standard interface to implement a custom validator.
@@ -277,7 +277,7 @@ This is the only member of the interface that needs impelemtation.
 This function receives dat of *any* type and returns an array of objects which 
 are of type or extension of IValidationMessage.
 
---
+---
 
 ## FormStateConfig
 This is the initial configuration for Form Runner
